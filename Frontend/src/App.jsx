@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { LuListTodo } from "react-icons/lu";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import "./checkBox.css";
 
 function App() {
   const [showTasks, setShowTasks] = useState([]);
@@ -11,19 +12,24 @@ function App() {
   // function to add TODO
   const addTodo = () => {
     setTaskId(taskid + 1);
+
+    if (todotask.length === 0) {
+      alert("Please enter a task then add");
+      return;
+    }
     const task = {
       id: taskid,
       task: todotask,
       completed: false,
     };
-    
+
     setShowTasks([...showTasks, task]);
     setTodoTask("");
   };
-  
+
   // function to delete TODO
   const deleteTodo = (idx) => {
-    console.log("insidee this function", idx);
+    console.log(showTasks);
     const temp = [...showTasks];
     temp.splice(idx, 1);
     setShowTasks(temp);
@@ -61,7 +67,34 @@ function App() {
                       key={e.id}
                       className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-lg"
                     >
-                      <input type="checkbox" />
+                      {/* <div>
+                        <input type="checkbox" className="wrap-check-60"/>
+                      </div> */}
+                      <div className="inline-flex items-center">
+                        <label
+                          className="relative flex items-center p-3 rounded-full cursor-pointer"
+                          htmlFor="customStyle"
+                        >
+                          <input
+                            type="checkbox"
+                            className="before:content[''] peer relative h-8 w-8 cursor-pointer appearance-none rounded-full border border-gray-900/20 bg-gray-900/10 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:scale-105 hover:before:opacity-0"
+                            id="customStyle"
+                          />
+                          <span className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-3.5 w-3.5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              stroke="currentColor"
+                            >
+                              <path
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              ></path>
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
                       <div className="w-[60%]">
                         <div>{e.task}</div>
                         {/* <div className="overflow-hidden whitespace-nowrap text-ellipsis">Description : {e.desc}</div> */}

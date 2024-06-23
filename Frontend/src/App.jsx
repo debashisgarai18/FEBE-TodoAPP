@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { LuListTodo } from "react-icons/lu";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -8,6 +8,17 @@ function App() {
   const [showTasks, setShowTasks] = useState([]);
   const [todotask, setTodoTask] = useState("");
   const [taskid, setTaskId] = useState(1);
+
+  // function to show all the TODOS on the API call
+  const getData = async () =>{
+    const resp = await fetch('http://localhost:3000/todos');
+    const data = await resp.json();
+    setShowTasks(data);
+  }
+
+  useEffect(() => {
+    getData();
+  },[showTasks]);
 
   // function to add TODO
   const addTodo = () => {
@@ -29,7 +40,6 @@ function App() {
 
   // function to delete TODO
   const deleteTodo = (idx) => {
-    console.log(showTasks);
     const temp = [...showTasks];
     temp.splice(idx, 1);
     setShowTasks(temp);
@@ -65,11 +75,8 @@ function App() {
                   return (
                     <div
                       key={e.id}
-                      className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-lg"
+                      className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-xl hover:bg-white/30 cursor-pointer"
                     >
-                      {/* <div>
-                        <input type="checkbox" className="wrap-check-60"/>
-                      </div> */}
                       <div className="inline-flex items-center">
                         <label
                           className="relative flex items-center p-3 rounded-full cursor-pointer"
@@ -88,9 +95,7 @@ function App() {
                               fill="currentColor"
                               stroke="currentColor"
                             >
-                              <path
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              ></path>
+                              <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path>
                             </svg>
                           </span>
                         </label>

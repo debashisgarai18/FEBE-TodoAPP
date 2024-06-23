@@ -10,18 +10,18 @@ function App() {
   const [taskid, setTaskId] = useState(1);
 
   // function to show all the TODOS on the API call
-  const getData = async () =>{
-    const resp = await fetch('http://localhost:3000/todos');
+  const getData = async () => {
+    const resp = await fetch("http://localhost:3000/todos");
     const data = await resp.json();
     setShowTasks(data);
-  }
+  };
 
   useEffect(() => {
     getData();
-  },[showTasks]);
+  }, [showTasks]);
 
   // function to add TODO
-  const addTodo = () => {
+  const addTodo = async () => {
     setTaskId(taskid + 1);
 
     if (todotask.length === 0) {
@@ -34,7 +34,18 @@ function App() {
       completed: false,
     };
 
-    setShowTasks([...showTasks, task]);
+    fetch("http://localhost:3000/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    }).then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+
+      return res.json();
+    });
+
     setTodoTask("");
   };
 

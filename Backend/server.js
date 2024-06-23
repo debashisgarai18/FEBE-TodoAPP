@@ -6,38 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const dummyTodo = [
-    {
-        id: 1,
-        task : "Do BTrees",
-        completed : false
-    },
-    {
-        id: 2,
-        task : "Do Gym",
-        completed : false
-    },
-    {
-        id: 3,
-        task : "Do Graphs",
-        completed : false
-    },
-    {
-        id: 4,
-        task : "Do React",
-        completed : false
-    },
-    {
-        id: 5,
-        task : "Do TypeScript",
-        completed : false
-    },
-    {
-        id: 6,
-        task : "Do JS",
-        completed : false
-    },
-]
+const dummyTodo = []
 
 app.get("/todos", (req, res) => {
     res.status(200).json(dummyTodo);

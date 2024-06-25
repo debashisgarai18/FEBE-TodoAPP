@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
+
+const mongo_url = process.env.MONGO_URL;
+
+console.log(mongo_url);
 
 // to connect to MongoDB
-mongoose.connect("mongodb+srv://dg18:Iamajettsimp69@todocluster01.7uz2sce.mongodb.net/todoList");
+mongoose.connect(mongo_url);
 // to define the schema
 const TodoSchema = new mongoose.Schema({
     taskName : String, 

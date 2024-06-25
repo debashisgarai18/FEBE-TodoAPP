@@ -3,11 +3,15 @@ import "./App.css";
 import { LuListTodo } from "react-icons/lu";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import "./checkBox.css";
+import { IoPencil } from "react-icons/io5";
+import { FaCheck } from "react-icons/fa6";
 
 function App() {
   const [showTasks, setShowTasks] = useState([]);
   const [todotask, setTodoTask] = useState("");
   const [taskid, setTaskId] = useState(1);
+  const [editEnabled, setEditEnabled] = useState(true);
+  const [updatedTodo, setUpdatedTodo] = useState("");
 
   // function to show all the TODOS on the API call
   const getData = async () => {
@@ -16,13 +20,10 @@ function App() {
     data && setShowTasks(data);
   };
 
-  // const showData = () => {
-  //   getData();
-  // };
-
   useEffect(() => {
     getData();
-  }, [showTasks]);
+  }, [showTasks, updatedTodo]);
+
   // function to add TODO
   const addTodo = async () => {
     setTaskId(taskid + 1);
@@ -59,6 +60,11 @@ function App() {
     });
   };
 
+  // function to Update a todo
+  const updateTask = (idx) => {
+    setEditEnabled(!editEnabled)
+  }
+
   return (
     <>
       <div className="w-full min-h-screen bg-[#212121] pt-[7rem]">
@@ -82,12 +88,6 @@ function App() {
               >
                 Add
               </button>
-              {/* <button
-                className="h-[4.1rem] w-full bg-[#212121] rounded-[3rem] font-semibold text-2xl text-white/50 shadow-lg"
-                onClick={showData}
-              >
-                Show Tasks
-              </button> */}
             </div>
             <div className="w-full flex flex-col gap-[0.75rem]">
               {showTasks &&
@@ -121,13 +121,39 @@ function App() {
                         </label>
                       </div>
                       <div className="w-[60%]">
-                        <div>{e.taskName}</div>
-                        {/* <div className="overflow-hidden whitespace-nowrap text-ellipsis">Description : {e.desc}</div> */}
+                        {!editEnabled ? (
+                          <div className="overflow-hidden whitespace-nowrap text-ellipsis">
+                            {e.taskName}
+                          </div>
+                        ) : (
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="Enter the text"
+                              value={updatedTodo}
+                              onChange={(e) => setUpdatedTodo(e.target.value)}
+                              className="w-full px-3 py-2 outline-none border-none bg-transparent" 
+                            />
+                          </div>
+                        )}
                       </div>
-                      <MdOutlineDeleteOutline
-                        className="text-4xl cursor-pointer"
-                        onClick={() => deleteTodo(e._id)}
-                      />
+                      <div className="flex gap-[1rem] items-center">
+                        {!editEnabled ? (
+                          <IoPencil
+                            className="text-3xl cursor-pointer"
+                            onClick={() => setEditEnabled(!editEnabled)}
+                          />
+                        ) : (
+                          <FaCheck
+                            className="text-3xl cursor-pointer"
+                            onClick={() => updateTask(e._id)}
+                          />
+                        )}
+                        <MdOutlineDeleteOutline
+                          className="text-4xl cursor-pointer"
+                          onClick={() => deleteTodo(e._id)}
+                        />
+                      </div>
                     </div>
                   );
                 })}

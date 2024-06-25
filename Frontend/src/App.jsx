@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     getData();
-  },[showTasks])
+  }, [showTasks]);
   // function to add TODO
   const addTodo = async () => {
     setTaskId(taskid + 1);
@@ -53,10 +53,10 @@ function App() {
   };
 
   // function to delete TODO
-  const deleteTodo = (idx) => {
-    const temp = [...showTasks];
-    temp.splice(idx, 1);
-    setShowTasks(temp);
+  const deleteTodo = async (idx) => {
+    await fetch(`http://localhost:3000/todos/${idx}`, {
+      method: "DELETE",
+    });
   };
 
   return (
@@ -91,10 +91,10 @@ function App() {
             </div>
             <div className="w-full flex flex-col gap-[0.75rem]">
               {showTasks &&
-                showTasks.map((e, idx) => {
+                showTasks.map((e) => {
                   return (
                     <div
-                      key={e.id}
+                      key={e._id}
                       className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-xl hover:bg-white/30 cursor-pointer"
                     >
                       <div className="inline-flex items-center">
@@ -126,7 +126,7 @@ function App() {
                       </div>
                       <MdOutlineDeleteOutline
                         className="text-4xl cursor-pointer"
-                        onClick={() => deleteTodo(idx)}
+                        onClick={() => deleteTodo(e._id)}
                       />
                     </div>
                   );

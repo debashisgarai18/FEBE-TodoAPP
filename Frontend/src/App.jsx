@@ -13,13 +13,16 @@ function App() {
   const getData = async () => {
     const resp = await fetch("http://localhost:3000/todos");
     const data = await resp.json();
-    setShowTasks(data);
+    data && setShowTasks(data);
   };
+
+  // const showData = () => {
+  //   getData();
+  // };
 
   useEffect(() => {
     getData();
-  }, [showTasks]);
-
+  },[showTasks])
   // function to add TODO
   const addTodo = async () => {
     setTaskId(taskid + 1);
@@ -58,14 +61,14 @@ function App() {
 
   return (
     <>
-      <div className="w-full h-screen bg-[#212121] pt-[7rem]">
+      <div className="w-full min-h-screen bg-[#212121] pt-[7rem]">
         <div className="w-[35%] min-h-[300px] bg-white/70 m-auto rounded-xl px-[1rem] py-[2rem]">
           <div className="w-full h-fit">
             <div className="w-full flex items-center gap-[0.75rem] text-[2.5rem] px-[0.5rem] mb-[2rem] drop-shadow-lg">
               <div className="font-bold">To-do List</div>
               <LuListTodo />
             </div>
-            <div className="w-full relative px-[1rem] mb-[1.5rem]">
+            <div className="w-full relative px-[1rem] mb-[1.5rem] flex flex-col gap-[1rem]">
               <input
                 type="text"
                 className="w-full h-[4.1rem] rounded-[3rem] px-[1.5rem] text-2xl focus:outline-none focus:border-none shadow-lg"
@@ -79,6 +82,12 @@ function App() {
               >
                 Add
               </button>
+              {/* <button
+                className="h-[4.1rem] w-full bg-[#212121] rounded-[3rem] font-semibold text-2xl text-white/50 shadow-lg"
+                onClick={showData}
+              >
+                Show Tasks
+              </button> */}
             </div>
             <div className="w-full flex flex-col gap-[0.75rem]">
               {showTasks &&
@@ -112,7 +121,7 @@ function App() {
                         </label>
                       </div>
                       <div className="w-[60%]">
-                        <div>{e.task}</div>
+                        <div>{e.taskName}</div>
                         {/* <div className="overflow-hidden whitespace-nowrap text-ellipsis">Description : {e.desc}</div> */}
                       </div>
                       <MdOutlineDeleteOutline

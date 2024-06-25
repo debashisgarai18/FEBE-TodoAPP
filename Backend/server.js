@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const { Todos } = require("./databases/todo_db");
 const app = express();
+
 
 // middlewares 
 app.use(express.json());
@@ -8,27 +10,23 @@ app.use(cors());
 
 const dummyTodo = [];
 
-app.get("/todos", (req, res) => {
-    res.status(200).json(dummyTodo);
+app.get("/todos", async (req, res) => {
+    const data = await Todos.find({});
+    res.status(200).json(data);
 })
 
-app.post("/todos", (req, res) => {
+app.post("/todos", async (req, res) => {
     try{
-
-        const taskId = req.body.id
         const taskName = req.body.task;
-        const taskComp = req.body.completed;
         
-        const addTask = {
-            id : taskId,
-            task : taskName,
-            completed : taskComp
-        }
         
-        dummyTodo.push(addTask);
+        await Todos.create({
+            taskName : taskName, 
+            completed : false
+        })
 
         res.status(200).json({
-            message : "Data pushed Successfully",
+            message : "Data uploaded Successfully",
         })
     }
     catch(err){

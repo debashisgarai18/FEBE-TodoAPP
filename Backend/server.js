@@ -2,11 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-// middlewares
+// middlewares 
 app.use(express.json());
 app.use(cors());
 
-const dummyTodo = []
+const dummyTodo = [];
 
 app.get("/todos", (req, res) => {
     res.status(200).json(dummyTodo);

@@ -32,31 +32,54 @@ app.post("/todos", async (req, res) => {
   }
 });
 
+// function to update a todo provided its ID
+app.put("/todos/:id", async (req, res) => {
+  const updateId = req.params.id;
+  const updateTask = req.body.taskName;
+  console.log(updateTask, updateId);
+
+  // check for Id type, if it is correct then delete else leave
+  if (!mongoose.Types.ObjectId.isValid(updateId)) {
+    return res.status(404).json({
+      message: "ID format is not correct",
+    });
+  }
+  const response = await Todos.findByIdAndUpdate(
+    { _id: updateId },
+    { taskName: updateTask }
+  );
+  if (response) {
+    res.status(200).json({
+      message: `The data with ${updateId} is being updated!!`,
+    });
+  } else {
+    res.status(404).json({
+      message: "Error! The ID is not found!!",
+    });
+  }
+});
+
 // to delete a todo of specifc ID
 app.delete("/todos/:id", async (req, res) => {
-  try {
-    const delId = req.params.id;
-    
-    // check for Id type, if it is correct then delete else leave
-    if(!mongoose.Types.ObjectId.isValid(delId)){
-        return res.status(404).json({
-            message : "ID format is not correct"
-        })
-    }
+  const delId = req.params.id;
 
-    const res = await Todos.findByIdAndDelete(delId);
+  // check for Id type, if it is correct then delete else leave
+  if (!mongoose.Types.ObjectId.isValid(delId)) {
+    return res.status(404).json({
+      message: "ID format is not correct",
+    });
+  }
 
-    if (res) {
-      res.status(200).json({
-        message: `The data with ${id} has been deleted successfully!!!`,
-      });
-    } else {
-      return res.status(404).json({
-        message: "There is some issue with the ID",
-      });
-    }
-  } catch (err) {
-    res.status(404).json({ message: "Some error" });
+  const response = await Todos.findByIdAndDelete(delId);
+
+  if (response) {
+    res.status(200).json({
+      message: `The data with ${delId} has been deleted successfully!!!`,
+    });
+  } else {
+    return res.status(404).json({
+      message: "There is some issue with the ID",
+    });
   }
 });
 

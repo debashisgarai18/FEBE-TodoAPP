@@ -4,7 +4,7 @@ import { IoPencil } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
-const TodoData = ({ data}) => {
+const TodoData = ({ data }) => {
   const [updatedTodo, setUpdatedTodo] = useState("");
   const [editEnabled, setEditEnabled] = useState(false);
 
@@ -16,12 +16,21 @@ const TodoData = ({ data}) => {
   };
 
   // function to Update a todo
-  const updateTask = (idx) => {
-    
+  const updateTask = async (idx) => {
+    const updatedTask = {
+      taskName : updatedTodo
+    }
+    await fetch(`http://localhost:3000/todos/${idx}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTask),
+    });
+    setUpdatedTodo("");
     setEditEnabled(!editEnabled);
   };
 
-  console.log(data.taskName);
   return (
     <>
       <div className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-xl hover:bg-white/30">

@@ -17,9 +17,14 @@ const TodoData = ({ data }) => {
 
   // function to Update a todo
   const updateTask = async (idx) => {
-    const updatedTask = {
-      taskName : updatedTodo
+    if (updatedTodo.length === 0) {
+      alert("Entered Todo cannot be blank!!!");
+      setEditEnabled(!editEnabled);
+      return;
     }
+    const updatedTask = {
+      taskName: updatedTodo,
+    };
     await fetch(`http://localhost:3000/todos/${idx}`, {
       method: "PUT",
       headers: {

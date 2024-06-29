@@ -4,7 +4,7 @@ import { IoPencil } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
-const TodoData = ({ data }) => {
+const TodoData = ({ data}) => {
   const [updatedTodo, setUpdatedTodo] = useState("");
   const [editEnabled, setEditEnabled] = useState(false);
 
@@ -17,14 +17,14 @@ const TodoData = ({ data }) => {
 
   // function to Update a todo
   const updateTask = (idx) => {
-    console.log(idx);
-    console.log(updatedTodo)
+    
     setEditEnabled(!editEnabled);
   };
-//   console.log(data.taskName);
+
+  console.log(data.taskName);
   return (
     <>
-      <div className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-xl hover:bg-white/30 cursor-pointer">
+      <div className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-xl hover:bg-white/30">
         <div className="inline-flex items-center">
           <label
             className="relative flex items-center p-3 rounded-full cursor-pointer"

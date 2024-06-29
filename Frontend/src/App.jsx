@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { LuListTodo } from "react-icons/lu";
-
-import "./checkBox.css";
-
-import TodoData from "../componenets/TodoData";
+import TodoData from "./componenets/TodoData";
 
 function App() {
   const [showTasks, setShowTasks] = useState([]);
   const [todotask, setTodoTask] = useState("");
-
-
 
   // function to show all the TODOS on the API call
   const getData = async () => {
@@ -79,7 +74,7 @@ function App() {
               {showTasks &&
                 showTasks.map((e) => {
                   return (
-                    <TodoData key={e._id} data={e}/>
+                      <TodoData key={e._id} data={e}/>
                   );
                 })}
             </div>

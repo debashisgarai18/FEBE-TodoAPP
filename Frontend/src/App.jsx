@@ -15,7 +15,9 @@ function App() {
   };
 
   useEffect(() => {
-    getData();
+    setInterval(() => {
+      getData();
+    },100);
   }, []);
 
   // function to add TODO

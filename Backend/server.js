@@ -36,7 +36,6 @@ app.post("/todos", async (req, res) => {
 app.put("/todos/:id", async (req, res) => {
   const updateId = req.params.id;
   const updateTask = req.body.taskName;
-  console.log(updateTask, updateId);
 
   // check for Id type, if it is correct then delete else leave
   if (!mongoose.Types.ObjectId.isValid(updateId)) {
@@ -55,6 +54,38 @@ app.put("/todos/:id", async (req, res) => {
   } else {
     res.status(404).json({
       message: "Error! The ID is not found!!",
+    });
+  }
+});
+
+// function to update the todo completion status
+app.put("/todos/updateStatus/:id", async (req, res) => {
+  console.log("hi there!!")
+  const updateId = req.params.id;
+  try {
+    // check for Id type, if it is correct then delete else leave
+    if (!mongoose.Types.ObjectId.isValid(updateId)) {
+      return res.status(404).json({
+        message: "ID format is not correct",
+      });
+    }
+
+    const response = await Todos.findByIdAndUpdate(
+      { _id: updateId },
+      { completed: true }
+    );
+    if (response) {
+      res.status(200).json({
+        message: "The todo staus is updated!!",
+      });
+    } else {
+      res.status(404).json({
+        message: "There is some issue in updating the status!!",
+      });
+    }
+  } catch (err) {
+    res.status(404).json({
+      message: "Some error ocurred!!",
     });
   }
 });
@@ -86,7 +117,7 @@ app.delete("/todos/:id", async (req, res) => {
 // addding a global catch
 app.use((err, req, res, next) => {
   res.status(404).json({
-    message: err,
+    message: "Some global error ocurred!!",
   });
 });
 

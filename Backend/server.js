@@ -60,7 +60,6 @@ app.put("/todos/:id", async (req, res) => {
 
 // function to update the todo completion status
 app.put("/todos/updateStatus/:id", async (req, res) => {
-  console.log("hi there!!")
   const updateId = req.params.id;
   try {
     // check for Id type, if it is correct then delete else leave

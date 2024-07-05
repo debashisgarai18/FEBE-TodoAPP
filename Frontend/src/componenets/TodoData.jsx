@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa6";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const TodoData = ({ data }) => {
-  const [updatedTodo, setUpdatedTodo] = useState("");
+  const [updatedTodo, setUpdatedTodo] = useState(data.taskName);
   const [editEnabled, setEditEnabled] = useState(false);
   const updateStatus  = data.completed
   const [isSelected, setIsSelected] = useState(false);

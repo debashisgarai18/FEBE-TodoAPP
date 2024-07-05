@@ -7,6 +7,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 const TodoData = ({ data }) => {
   const [updatedTodo, setUpdatedTodo] = useState("");
   const [editEnabled, setEditEnabled] = useState(false);
+  const [updateStatus, setUpdateStatus] = useState(false);
   const [ischecked, setIsChecked] = useState(false);
 
   // function to delete TODO
@@ -73,7 +74,7 @@ const TodoData = ({ data }) => {
         <div className="w-[60%]">
           {!editEnabled ? (
             <div className="overflow-hidden whitespace-nowrap text-ellipsis">
-              {ischecked ? <s>{data.taskName}</s> : data.taskName}
+              {!updateStatus ? <s>{data.taskName}</s> : data.taskName}
             </div>
           ) : (
             <div>

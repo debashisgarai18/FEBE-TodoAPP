@@ -7,7 +7,8 @@ const mongo_url = process.env.MONGO_URL;
 mongoose.connect(mongo_url);
 // to define the schema
 const TodoSchema = new mongoose.Schema({
-    taskName : String, 
+    taskName : String,
+    description : String,
     completed : Boolean
 });
 

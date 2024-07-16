@@ -18,10 +18,12 @@ app.get("/todos", async (req, res) => {
 app.post("/todos", async (req, res) => {
   try {
     const taskName = req.body.task;
+    const description = req.body.desc;
 
     await Todos.create({
       taskName: taskName,
-      completed: false,
+      description: description,
+      completed: false
     });
 
     res.status(200).json({
@@ -36,6 +38,7 @@ app.post("/todos", async (req, res) => {
 app.put("/todos/:id", async (req, res) => {
   const updateId = req.params.id;
   const updateTask = req.body.taskName;
+  const updateDesc = my
 
   // check for Id type, if it is correct then delete else leave
   if (!mongoose.Types.ObjectId.isValid(updateId)) {

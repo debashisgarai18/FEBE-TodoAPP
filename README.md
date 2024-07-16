@@ -9,8 +9,12 @@
 - Mark the task as done
 - Remove a Task
 
+#### securities to be added : 
+- input validation with zod
+- authentitaion with JWT
+
 #### features needed to be added : 
-- Add the signup/login endpoint
+- Add the signup/login endpoints
 - add the signup and login pages
 - segregate tasks based on authentication
 - add calender and timeslots - (UI update)

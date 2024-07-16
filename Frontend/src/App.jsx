@@ -52,10 +52,10 @@ function App() {
   return (
     <>
       <div className="w-full min-h-screen bg-[#212121] pt-[7rem]">
-        <div className="w-[35%] min-h-[300px] bg-white/70 m-auto rounded-xl px-[1rem] py-[2rem]">
+        <div className="w-[60%] min-h-[300px] bg-white/70 m-auto rounded-xl px-[1rem] py-[2rem]">
           <div className="w-full h-fit">
             <div className="w-full flex items-center gap-[0.75rem] text-[2.5rem] px-[0.5rem] mb-[2rem] drop-shadow-lg">
-              {/* <div className="font-bold">To-do List</div> */}
+              <div className="font-bold">To-do List</div>
               <LuListTodo />
             </div>
             <div className="w-full relative px-[1rem] mb-[1.5rem] flex flex-col gap-[0.2rem]">
@@ -67,7 +67,7 @@ function App() {
                 onChange={(e) => setTodoTask(e.target.value)}
               />
               <textarea
-                className="w-full h-[4.1rem] rounded-[3rem] px-[1.5rem] text-2xl focus:outline-none focus:border-none shadow-lg py-[1rem] resize-none"
+                className="w-full h-[4rem] rounded-[3rem] px-[1.5rem] text-base focus:outline-none focus:border-none shadow-lg py-[1.2rem]"
                 rows={1}
                 placeholder="Enter the description.."
                 wrap="hard"
@@ -75,7 +75,7 @@ function App() {
                 onChange={(e) => setTodoDesc(e.target.value)}
               ></textarea>
               <button
-                className="absolute right-[0.75rem] h-[8.4rem] w-[8rem] bg-[#212121] rounded-[2rem] font-semibold text-2xl text-white/50 shadow-lg"
+                className="absolute right-[0.75rem] h-[4.1rem] w-[8rem] bg-[#212121] rounded-[2rem] font-semibold text-2xl text-white/50 shadow-lg"
                 onClick={addTodo}
               >
                 Add

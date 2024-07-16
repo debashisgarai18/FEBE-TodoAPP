@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import { IoPencil } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
 
 const TodoData = ({ data }) => {
   const [updatedTodo, setUpdatedTodo] = useState(data.taskName);
   const [editEnabled, setEditEnabled] = useState(false);
   const updateStatus  = data.completed
   const [isSelected, setIsSelected] = useState(false);
+  const [showDesc, setShowDesc] = useState(false);
 
   // function to delete TODO
   const deleteTodo = async (idx) => {
@@ -57,9 +59,13 @@ const TodoData = ({ data }) => {
     setEditEnabled(false);
   }
 
+  const handleDesc = () => {
+    setShowDesc(!showDesc);
+  }
+  // console.log(showDesc);
   return (
     <>
-      <div className="text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-xl hover:bg-white/30">
+      <div className="parent text-[#212121] flex text-2xl items-center justify-between bg-white/50 px-[1rem] py-[0.5rem] rounded-xl hover:bg-white/30">
         <div className="inline-flex items-center">
           <label
             className="relative flex items-center p-3 rounded-full cursor-pointer"
@@ -118,8 +124,13 @@ const TodoData = ({ data }) => {
             className="text-4xl cursor-pointer"
             onClick={() => deleteTodo(data._id)}
           />
+        <IoIosArrowDown
+        className="text-4xl cursor-pointer"
+        onClick={handleDesc} 
+        />
         </div>
       </div>
+      {showDesc && <div className="child ease-out duration-500 transition-all px-[11rem]">{data.description}</div>}
     </>
   );
 };
